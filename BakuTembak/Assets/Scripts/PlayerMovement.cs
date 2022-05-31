@@ -5,21 +5,22 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb2D;
-
     private float moveSpeed;
     private float jumpForce;
     private bool isJumping;
     private float moveHorizontal;
     private float moveVertical;
+    private bool facingRight;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
-
+        
         moveSpeed = 3f;
-        jumpForce = 50f;
+        jumpForce = 60f;
         isJumping = false;
+        facingRight = true;
 
     }
 
@@ -28,6 +29,47 @@ public class PlayerMovement : MonoBehaviour
     {
         moveHorizontal = Input.GetAxisRaw("Horizontal");
         moveVertical = Input.GetAxisRaw("Vertical");
+
+        //On X axis: -1f is left, 1f is right
+
+        //Player Movement. Check for horizontal movement
+        if (moveHorizontal > 0.1f || moveHorizontal < -0.1f) 
+        {
+            transform.Translate (new Vector3 (moveHorizontal * moveSpeed * Time.deltaTime, 0f, 0f));
+            if (moveHorizontal > 0.1f && !facingRight) 
+            {
+                //If we're moving right but not facing right, flip the sprite and set facingRight to true.
+                Flip ();
+                facingRight = true;
+            } 
+            else if (moveHorizontal < 0.1f && facingRight) 
+            {
+                //If we're moving left but not facing left, flip the sprite and set facingRight to false.
+                Flip ();
+                facingRight = false;
+            }
+
+        //If we're not moving horizontally, check for vertical movement. The "else if" stops diagonal movement. Change to "if" to allow diagonal movement.
+        }
+        if (moveVertical > 0.1f || moveVertical < -0.1f) 
+        {
+            transform.Translate (new Vector3 (0f, moveVertical * moveSpeed * Time.deltaTime, 0f));
+        }
+
+    // //Variables for the animator to use as params
+    // anim.SetFloat ("MoveX", moveHorizontal);
+    // anim.SetFloat ("MoveY", moveVertical);
+    }
+
+    void Flip()
+    {
+        // Switch the way the player is labelled as facing
+        facingRight = !facingRight;
+
+        // Multiply the player's x local scale by -1
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 
     // updating with the physic engine inside unity
