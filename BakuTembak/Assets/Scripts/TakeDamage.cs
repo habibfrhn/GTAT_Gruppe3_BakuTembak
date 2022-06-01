@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class TakeDamage : MonoBehaviour
 {
+    public int maxHealth = 60;
+    public int currentHealth;
+
+	public HealthBar healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+		currentHealth = maxHealth;
+		healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			takeDamage(20); //taking damage
+		}
     }
+
+	void takeDamage(int damage)
+	{
+		currentHealth -= damage;
+
+		healthBar.SetHealth(currentHealth);
+	}
 }
