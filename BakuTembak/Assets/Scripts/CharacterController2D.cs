@@ -6,18 +6,18 @@ using System.Collections.Generic;
 
 public class CharacterController2D : MonoBehaviour
 {
-   [SerializeField] private float m_JumpForce = 900f;							// jumping force
+   	[SerializeField] private float m_JumpForce = 900f;							// jumping force
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// variable to control how smooth the movement
-	[SerializeField] public bool m_AirControl = true;							// moving while on air or not
-	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	[SerializeField] public bool m_AirControl = true;							// moving while mid air or not
+	[SerializeField] private LayerMask m_WhatIsGround;							// telling the software what is ground
 	[SerializeField] private Transform m_GroundCheck;							// empty to check if the player on the ground or not
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-	public bool m_Grounded;            // variable to check if the plaer on the ground or not
-	private Rigidbody2D m_Rigidbody2D;
+	public bool m_Grounded;            // variable to check if the player on the ground or not
+	private Rigidbody2D m_Rigidbody2D; //rigid body
 	private bool m_FacingRight = true;  // which way currently the player facing
 	private Vector3 m_Velocity = Vector3.zero;
-	public int jumps = 0;
+	public int jumps = 0; // jumps amount
 
 
 	[Header("Events")]
@@ -70,13 +70,13 @@ public class CharacterController2D : MonoBehaviour
 			
 			if (move > 0 && !m_FacingRight)
 			{
-				// flip the player.
+				// flip the player
 				Flip();
 			}
 			
 			else if (move < 0 && m_FacingRight)
 			{
-				// flip the player.
+				// flip the player
 				Flip();
 			}
 		}

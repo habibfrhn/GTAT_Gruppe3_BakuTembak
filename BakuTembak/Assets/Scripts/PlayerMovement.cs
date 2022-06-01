@@ -13,12 +13,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //move
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+        //animation to walk
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         if (Input.GetButtonDown("Jump"))
         {
+            //able to jump
             jump=true;
+            //animation jumping
             animator.SetBool("isJumping", true);
         }
         
@@ -28,11 +32,13 @@ public class PlayerMovement : MonoBehaviour
     {      
         //move character
         controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
+        //not able to jump
         jump=false;
     }
 
     public void OnLanding()
     {
+    // when land back to idle animation
     animator.SetBool("isJumping", false);
     } 
 }

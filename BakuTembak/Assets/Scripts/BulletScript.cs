@@ -10,12 +10,13 @@ public class BulletScript : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
+		// bullet acceleration
 		rb.velocity = transform.right * speed;
 	}
 
 	void OnTriggerEnter2D (Collider2D hitInfo)
 	{
-		// find enemy
+		// bullet collider find enemy or hit other collider
 		EnemyScript enemy = hitInfo.GetComponent<EnemyScript>();
 		if (enemy != null)
 		{

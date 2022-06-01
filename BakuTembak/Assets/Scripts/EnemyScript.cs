@@ -9,13 +9,16 @@ public class EnemyScript : MonoBehaviour
 
 	public GameObject deathEffect;
 
+	// total enemy kill
 	public int kill=0;
 
+	// accsesing other script
 	ScoreScript scoreScript;
     [SerializeField] GameObject Player;
 
 	void Start()
     {
+		// calling other script
        scoreScript = Player.GetComponent<ScoreScript>();
     }
     
@@ -41,8 +44,10 @@ public class EnemyScript : MonoBehaviour
 		Destroy(gameObject);
 	}
 
+	//update the score
 	void UpdateScore()
 	{
+		//Update the score for every enemy killed
 		scoreScript.ScoreNumber+=kill;
 	}
 }
