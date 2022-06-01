@@ -6,12 +6,17 @@ using UnityEngine.UI;
 public class ScoreScript : MonoBehaviour
 {
     public Text MyScore;
-    private int ScoreNumber;
+    public int ScoreNumber;
+
     // Start is called before the first frame update
     void Start()
     {
        ScoreNumber = 0;
-       MyScore.text = "Score: " + ScoreNumber; 
+    }
+
+    void Update()
+    {       
+        MyScore.text = "Score: " + ScoreNumber;       
     }
 
     // Update is called once per frame
@@ -20,8 +25,10 @@ public class ScoreScript : MonoBehaviour
         if (Coin.tag == "Coin")
         {
             ScoreNumber++;
-            Destroy(Coin.gameObject);
             MyScore.text = "Score: " + ScoreNumber;
+            Destroy(Coin.gameObject);
         }
+        
     }
+
 }

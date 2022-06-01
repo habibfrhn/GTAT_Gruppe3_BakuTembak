@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class TakeDamage : MonoBehaviour
 {
-    public int maxHealth = 60;
+    public int maxHealth = 100;
     public int currentHealth;
 
 	public HealthBar healthBar;
+	public Rigidbody2D rb;
+	public Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
 		currentHealth = maxHealth;
 		healthBar.SetMaxHealth(maxHealth);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			takeDamage(20); //taking damage
-		}
+		rb = GetComponent<Rigidbody2D>();
     }
 
 	void takeDamage(int damage)
@@ -31,4 +25,21 @@ public class TakeDamage : MonoBehaviour
 
 		healthBar.SetHealth(currentHealth);
 	}
+
+	private void OnTriggerEnter2D(Collider2D enemy)
+     {
+         if(currentHealth > 0 && enemy.gameObject.tag == "Enemy")
+         {
+             takeDamage(10);
+			 rb.velocity = new Vector3(-50, 10, 0);
+         }
+		 
+		 if(currentHealth<=0)
+		 {
+			 Debug.Log("Game ends!");
+			 animator.SetBool("isDying", true);
+			 Time.timeScale = 0;
+		 }
+
+     }
 }
