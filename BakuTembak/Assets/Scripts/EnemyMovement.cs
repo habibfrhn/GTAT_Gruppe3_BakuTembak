@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovementSecond : MonoBehaviour
+public class EnemyMovementThird : MonoBehaviour
 {
     public Rigidbody2D rb;
     Vector2 movement;
 
+    // the states needed
     public enum EnemyState {MOVE, WAIT};
-
     private EnemyState state = EnemyState.WAIT;
 
+    // if direction is true, it means it is facing right
     public bool direction = true;
 
     public float speed =  20f;
@@ -19,6 +20,7 @@ public class EnemyMovementSecond : MonoBehaviour
 
     void Start()
     {
+        // get the component
         rb = GetComponent<Rigidbody2D>();
         walkCountdown = walkInterval;
     }
@@ -43,23 +45,6 @@ public class EnemyMovementSecond : MonoBehaviour
     {
         state = EnemyState.MOVE;
 
-        // go to right
-        if (faceRight)
-        {
-            for (float i = 0; i < walkInterval; i++)
-            {
-                movement.x += speed;
-            }
-        }
-        // go to left
-        else if (faceRight == false)
-        {
-            for (float i = 0; i < walkInterval; i++)
-            {
-                movement.x -= speed;
-            }
-        }
-
         // to enter new state
         WalkContinue();
 
@@ -69,7 +54,15 @@ public class EnemyMovementSecond : MonoBehaviour
     void FixedUpdate()
     {
         // to move the enemy
-        rb.velocity = new Vector2(movement.x * Time.deltaTime, rb.velocity.y);
+        // always move either right or left
+        if (direction)
+        {
+            rb.velocity = new Vector2(speed * Time.deltaTime, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(-speed * Time.deltaTime, rb.velocity.y);
+        }
     }
 
     void WalkContinue()
@@ -80,29 +73,8 @@ public class EnemyMovementSecond : MonoBehaviour
         // change the direction it's facing
         direction = !direction;
 
-        walkCountdown = walkInterval;
-
-        //StartCoroutine(Moving(direction));
-    }
-
-    void WalkComplete()
-    {
-        state = EnemyState.WAIT;
-
-        // change the direction it's facing
-        // direction = !direction;
-        Flip();
-
+        // reset the countdown
         walkCountdown = walkInterval;
     }
 
-    private void Flip()
-    {
-        // Switch facing
-        direction = !direction;
-
-        //rotate the player in y-axis
-        transform.Rotate(0f, 180f, 0f);
-    }
-    
 }
