@@ -1,19 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
-{
-    public void PlayGame()
+{   
+    public static MainMenu Instance;
+    [SerializeField] GameObject MenuScreen, OptionsScreen;
+    void Awake()
     {
-        //next screen
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        Instance = this;
     }
-
-    public void QuitGame()
-    {
-        Debug.Log("Quit");
-        Application.Quit();
+    public void PlayBtnAction(){
+        Debug.Log("Play Pressed");
+        MenuManager.Instance.UpdateGameState(GameState.StartGame);
+    }
+    public void OptionsBtnAction(){
+        Debug.Log("Options Pressed");
+        MenuManager.Instance.UpdateGameState(GameState.OptionsGame);
+    }
+    public void openOptionsMenu(){
+        MenuScreen.SetActive(false);
+        OptionsScreen.SetActive(true);
+    }
+    public void ExitBtnAction(){
+        MenuManager.Instance.UpdateGameState(GameState.ExitGame);
     }
 }

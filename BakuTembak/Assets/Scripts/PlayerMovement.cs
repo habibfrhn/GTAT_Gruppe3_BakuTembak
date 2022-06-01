@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
             //animation jumping
             animator.SetBool("isJumping", true);
         }
-        
+        if (Input.GetKey(KeyCode.M)) MenuManager.Instance.UpdateGameState(GameState.PauseGame);
     }
 
     void FixedUpdate()
