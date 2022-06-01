@@ -8,7 +8,6 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
     public GameState State;
-    //[SerializeField] GameObject MenuScreen, OptionsScreen;
 
     void Awake()
     {
@@ -76,7 +75,7 @@ public class MenuManager : MonoBehaviour
         HandleStartGame();
     }
     private void HandleOptionsGame(){
-        MainMenu.Instance.openOptionsMenu();
+        OptionsMenu.Instance.openOptionsMenu();
     }
     private void HandlePauseGame(){
         PauseMenu.Instance.ToggleIngameMenu(true);

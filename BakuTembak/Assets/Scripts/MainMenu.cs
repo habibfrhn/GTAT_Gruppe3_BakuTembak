@@ -18,10 +18,10 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Options Pressed");
         MenuManager.Instance.UpdateGameState(GameState.OptionsGame);
     }
-    public void openOptionsMenu(){
+    /* public void openOptionsMenu(){
         MenuScreen.SetActive(false);
         OptionsScreen.SetActive(true);
-    }
+    } */
     public void ExitBtnAction(){
         MenuManager.Instance.UpdateGameState(GameState.ExitGame);
     }

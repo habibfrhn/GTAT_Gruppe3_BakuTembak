@@ -16,7 +16,10 @@ public class OptionsMenu : MonoBehaviour
     void Start(){
         //slider.onValueChanger.AddListener();
     }
-    
+    public void openOptionsMenu(){
+        MenuScreen.SetActive(false);
+        OptionsScreen.SetActive(true);
+    }
     public void BackBtnAction(){
         Debug.Log("Back Btn Pressed"); 
         MenuScreen.SetActive(true);

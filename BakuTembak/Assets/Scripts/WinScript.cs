@@ -10,7 +10,7 @@ public class WinScript : MonoBehaviour
         if (Player.tag == "Player")
         {
             //win the game
-            Debug.Log("Win");
+            MenuManager.Instance.UpdateGameState(GameState.WinGame);
         }
         
     }       

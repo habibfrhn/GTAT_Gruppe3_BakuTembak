@@ -46,7 +46,7 @@ public class TakeDamage : MonoBehaviour
 		 if(currentHealth<=0)
 		 {
 			 //lose the game
-			 Debug.Log("Game ends!");
+			 MenuManager.Instance.UpdateGameState(GameState.LoseGame);
 			 //dead animation
 			 animator.SetBool("isDying", true);
 			 //pause
